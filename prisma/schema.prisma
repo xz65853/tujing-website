@@ -1,0 +1,183 @@
+// 切换到 MySQL：把 provider 改成 "mysql"，并在 .env 中配置 DATABASE_URL 即可。
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// 管理员角色用字符串：SUPER_ADMIN / OPERATOR / SALES
+model Admin {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  passwordHash String
+  name         String
+  role         String   @default("SUPER_ADMIN")
+  createdAt    DateTime @default(now())
+  leads        Lead[]   @relation("AssignedTo")
+  followups    LeadFollowup[]
+}
+
+model ServiceCategory {
+  id    Int    @id @default(autoincrement())
+  name  String
+  slug  String @unique
+  sort  Int    @default(0)
+  items Service[]
+}
+
+model Service {
+  id          Int      @id @default(autoincrement())
+  name        String
+  slug        String   @unique
+  nameEn      String?
+  icon        String?
+  summary     String?
+  description String?
+  features    String?
+  audience    String?
+  seoTitle    String?
+  seoDesc     String?
+  sort        Int      @default(0)
+  published   Boolean  @default(true)
+  categoryId  Int?
+  category    ServiceCategory? @relation(fields: [categoryId], references: [id])
+  createdAt   DateTime @default(now())
+}
+
+model CaseCategory {
+  id    Int    @id @default(autoincrement())
+  name  String
+  slug  String @unique
+  sort  Int    @default(0)
+  cases Case[]
+}
+
+model Case {
+  id          Int      @id @default(autoincrement())
+  title       String
+  slug        String   @unique
+  subtitle    String?
+  industry    String?
+  projectType String?
+  cover       String?
+  summary     String?
+  background  String?
+  strategy    String?
+  execution   String?
+  result      String?
+  dataVisible Boolean  @default(false)
+  metrics     String?
+  images      String?
+  video       String?
+  seoTitle    String?
+  seoDesc     String?
+  featured    Boolean  @default(false)
+  status      String   @default("draft")
+  sort        Int      @default(0)
+  categoryId  Int?
+  category    CaseCategory? @relation(fields: [categoryId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ArticleCategory {
+  id    Int       @id @default(autoincrement())
+  name  String
+  slug  String    @unique
+  posts Article[]
+}
+
+model Article {
+  id         Int      @id @default(autoincrement())
+  title      String
+  slug       String   @unique
+  cover      String?
+  summary    String?
+  content    String?
+  author     String?
+  publishedAt DateTime?
+  seoTitle   String?
+  seoDesc    String?
+  status     String   @default("draft")
+  categoryId Int?
+  category   ArticleCategory? @relation(fields: [categoryId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Lead {
+  id          Int      @id @default(autoincrement())
+  name        String
+  phone       String
+  company     String?
+  city        String?
+  industry    String?
+  requirements String?
+  message     String?
+  source      String?
+  sourcePage  String?
+  status      String   @default("pending")
+  assignedToId Int?
+  assignedTo  Admin?   @relation("AssignedTo", fields: [assignedToId], references: [id])
+  followups   LeadFollowup[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([phone])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model LeadFollowup {
+  id              Int      @id @default(autoincrement())
+  leadId          Int
+  lead            Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  adminId         Int?
+  admin           Admin?   @relation(fields: [adminId], references: [id])
+  content         String
+  nextFollowupAt DateTime?
+  createdAt       DateTime @default(now())
+}
+
+model Banner {
+  id          Int      @id @default(autoincrement())
+  image       String?
+  title       String?
+  subtitle    String?
+  buttonText  String?
+  buttonLink  String?
+  sort        Int      @default(0)
+  startAt     DateTime?
+  endAt       DateTime?
+  active      Boolean  @default(true)
+}
+
+model Media {
+  id        Int      @id @default(autoincrement())
+  url       String
+  name      String
+  type      String
+  size      Int?
+  createdAt DateTime @default(now())
+}
+
+model SiteSetting {
+  id           Int     @id @default(1)
+  companyName  String  @default("湖南途鲸文化传媒有限公司")
+  slogan       String  @default("实体企业线上增长服务商")
+  description  String?
+  logo         String?
+  phone        String?
+  email        String?
+  address      String?
+  wechatQr     String?
+  icp          String?
+  douyin       String?
+  xiaohongshu  String?
+  siteTitle    String?
+  siteDesc     String?
+  siteKeywords String?
+}
