@@ -1,0 +1,92 @@
+<!-- Hero：深色渐变 + 装饰光斑 -->
+<view class="hero">
+  <view class="hero-glow hero-glow-1"></view>
+  <view class="hero-glow hero-glow-2"></view>
+  <view class="hero-inner">
+    <view class="hero-tag">✦ {{company.slogan}}</view>
+    <view class="hero-title">让实体生意<br/>真正做上线上</view>
+    <view class="hero-desc">抖音代运营 · 短视频 · 直播 · 本地生活 · 广告投放</view>
+    <view class="hero-stats">
+      <view class="stat"><text class="stat-num">200+</text><text class="stat-label">服务客户</text></view>
+      <view class="stat-divider"></view>
+      <view class="stat"><text class="stat-num">800+</text><text class="stat-label">交付案例</text></view>
+      <view class="stat-divider"></view>
+      <view class="stat"><text class="stat-num">5年</text><text class="stat-label">行业经验</text></view>
+    </view>
+    <view class="hero-actions">
+      <view class="hero-btn primary" bindtap="goContact">免费获取方案</view>
+      <view class="hero-btn ghost" bindtap="goProducts">查看套餐</view>
+    </view>
+  </view>
+</view>
+
+<view class="container">
+  <!-- 服务 -->
+  <view class="section-head">
+    <view class="section-title">我们能做什么</view>
+  </view>
+  <view class="service-grid">
+    <view class="service-item" wx:for="{{services}}" wx:key="id" data-slug="{{item.slug}}" bindtap="goService">
+      <view class="service-icon" style="background: {{item.color || 'linear-gradient(135deg,#EAF1FF,#D6E4FF)'}}">
+        <text class="service-icon-text">{{item.name[0]}}</text>
+      </view>
+      <view class="service-name">{{item.name}}</view>
+      <view class="service-summary">{{item.summary}}</view>
+    </view>
+  </view>
+
+  <!-- 热门套餐 -->
+  <view class="section-head">
+    <view class="section-title">热门套餐</view>
+    <view class="section-more" bindtap="goProducts">全部 ›</view>
+  </view>
+  <view class="product-list">
+    <view class="product-card" wx:for="{{products}}" wx:key="id" data-id="{{item.id}}" bindtap="goProduct">
+      <view class="product-badge" wx:if="{{index === 0}}">🔥 最受欢迎</view>
+      <view class="product-name">{{item.name}}</view>
+      <view class="product-sub">{{item.subtitle}} · {{item.duration}}</view>
+      <view class="product-bottom">
+        <view class="product-price-row">
+          <text class="product-price">¥{{item.price}}</text>
+          <text class="product-orig" wx:if="{{item.originalPrice}}">¥{{item.originalPrice}}</text>
+        </view>
+        <view class="product-arrow">›</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 案例 -->
+  <view class="section-head">
+    <view class="section-title">我们正在做的</view>
+    <view class="section-more" bindtap="goCases">更多 ›</view>
+  </view>
+  <view class="case-list">
+    <view class="case-card" wx:for="{{cases}}" wx:key="id" data-slug="{{item.slug}}" bindtap="goCase">
+      <view class="case-cover">
+        <text class="case-cover-text">{{item.industry}}</text>
+      </view>
+      <view class="case-body">
+        <view class="case-title">{{item.title}}</view>
+        <view class="case-summary">{{item.summary}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 文章 -->
+  <view class="section-head">
+    <view class="section-title">运营干货</view>
+  </view>
+  <view class="article-list">
+    <view class="article-item" wx:for="{{articles}}" wx:key="id" data-slug="{{item.slug}}" bindtap="goArticle">
+      <view class="article-dot"></view>
+      <view class="article-title">{{item.title}}</view>
+    </view>
+  </view>
+
+  <!-- CTA -->
+  <view class="cta-card">
+    <view class="cta-title">你的业务遇到了什么问题？</view>
+    <view class="cta-desc">告诉我们你的行业，获取一份初步运营思路</view>
+    <view class="cta-btn" bindtap="goContact">免费咨询</view>
+  </view>
+</view>

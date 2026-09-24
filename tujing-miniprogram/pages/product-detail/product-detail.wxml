@@ -1,0 +1,36 @@
+<view class="detail-hero" wx:if="{{detail}}">
+  <view class="detail-hero-inner">
+    <view class="detail-name">{{detail.name}}</view>
+    <view class="detail-sub">{{detail.subtitle}} · {{detail.duration}}</view>
+    <view class="detail-price-row">
+      <text class="detail-price">¥{{detail.price}}</text>
+      <text class="detail-orig" wx:if="{{detail.originalPrice}}">¥{{detail.originalPrice}}</text>
+    </view>
+  </view>
+</view>
+
+<view class="container" wx:if="{{detail}}">
+  <view class="card">
+    <view class="h2">服务包含</view>
+    <view style="margin-top:20rpx">
+      <view class="feat" wx:for="{{detail.features}}" wx:key="*this">
+        <text class="feat-check">✓</text>
+        <text>{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{detail.detail}}">
+    <view class="h2">详细说明</view>
+    <view style="margin-top:16rpx; white-space:pre-line; color:#4A5568; line-height:1.8">{{detail.detail}}</view>
+  </view>
+
+  <view style="height:160rpx"></view>
+  <view class="buy-bar">
+    <view class="buy-price">
+      <view class="buy-label">合计</view>
+      <view class="buy-amount">¥{{detail.price}}</view>
+    </view>
+    <view class="buy-btn" bindtap="buy">立即购买</view>
+  </view>
+</view>

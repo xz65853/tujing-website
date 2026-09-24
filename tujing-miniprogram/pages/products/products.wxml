@@ -1,0 +1,20 @@
+<view class="page-head">
+  <view class="page-title">服务套餐</view>
+  <view class="page-sub">选一个适合你的服务包，在线支付后我们会主动联系你</view>
+</view>
+
+<view class="container" style="padding-top: 0">
+  <view class="product-card" wx:for="{{products}}" wx:key="id" data-id="{{item.id}}" bindtap="goDetail">
+    <view class="product-badge" wx:if="{{index === 0}}">🔥 推荐</view>
+    <view class="product-name">{{item.name}}</view>
+    <view class="product-sub">{{item.subtitle}} · {{item.duration}}</view>
+    <view class="product-summary">{{item.summary}}</view>
+    <view class="product-bottom">
+      <view class="product-price-row">
+        <text class="product-price">¥{{item.price}}</text>
+        <text class="product-orig" wx:if="{{item.originalPrice}}">¥{{item.originalPrice}}</text>
+      </view>
+      <view class="product-btn">查看详情 ›</view>
+    </view>
+  </view>
+</view>
