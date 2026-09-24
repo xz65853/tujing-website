@@ -1,0 +1,4 @@
+.metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20rpx; margin-top: 20rpx; }
+.metric { background: #F6F8FB; border-radius: 16rpx; padding: 28rpx; text-align: center; }
+.metric-value { font-size: 40rpx; font-weight: 700; color: #155EEF; }
+.metric-label { font-size: 22rpx; color: #7A8699; margin-top: 8rpx; }

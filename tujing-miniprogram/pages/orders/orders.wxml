@@ -1,0 +1,17 @@
+<view class="container">
+  <view class="title" style="margin-bottom:24rpx">我的订单</view>
+
+  <view class="card" wx:for="{{orders}}" wx:key="id">
+    <view style="display:flex; justify-content:space-between">
+      <view class="h2">{{item.product.name}}</view>
+      <view class="tag" style="background:#EAF1FF; color:#155EEF">{{item.statusText}}</view>
+    </view>
+    <view class="muted" style="font-size:24rpx; margin-top:8rpx">{{item.product.duration}}</view>
+    <view style="display:flex; justify-content:space-between; align-items:center; margin-top:20rpx">
+      <view class="price">¥{{item.amount}}</view>
+      <view class="muted" style="font-size:22rpx">{{item.createdAt}}</view>
+    </view>
+  </view>
+
+  <view class="muted" style="text-align:center; margin-top:80rpx" wx:if="{{!loading && orders.length === 0}}">还没有订单，去首页看看服务套餐吧</view>
+</view>

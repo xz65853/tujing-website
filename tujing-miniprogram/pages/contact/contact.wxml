@@ -1,0 +1,21 @@
+<view class="container">
+  <view class="title">联系我们</view>
+  <view class="muted" style="margin:12rpx 0 32rpx">填写下面的信息，我们会在工作时间尽快与你联系</view>
+
+  <view class="card">
+    <input class="input" placeholder="您的称呼 *" value="{{name}}" bindinput="onName" />
+    <input class="input" placeholder="手机号 *" type="number" maxlength="11" value="{{phone}}" bindinput="onPhone" />
+    <input class="input" placeholder="公司 / 品牌（选填）" value="{{company}}" bindinput="onCompany" />
+    <textarea class="input" placeholder="目前最大的运营问题（选填）" value="{{message}}" bindinput="onMessage" auto-height />
+    <view class="btn-primary" bindtap="submit">{{submitting ? "提交中…" : "提交需求"}}</view>
+  </view>
+
+  <view class="card" wx:if="{{company.phone}}">
+    <view class="h2">其他方式</view>
+    <view style="margin-top:16rpx">
+      <view>电话：{{company.phone}}</view>
+      <view wx:if="{{company.address}}" style="margin-top:8rpx">地址：{{company.address}}</view>
+    </view>
+    <view class="btn-ghost" style="margin-top:24rpx" bindtap="callPhone">拨打电话</view>
+  </view>
+</view>

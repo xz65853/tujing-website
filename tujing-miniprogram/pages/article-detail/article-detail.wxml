@@ -1,0 +1,7 @@
+<view class="container" wx:if="{{detail}}">
+  <view class="title">{{detail.title}}</view>
+  <view class="muted" style="font-size:24rpx; margin-top:12rpx">{{detail.author}} · {{detail.publishedAt}}</view>
+  <view class="divider"></view>
+  <view style="white-space:pre-line; color:#2D3748; line-height:1.8">{{detail.content}}</view>
+</view>
+<view class="container muted" wx:if="{{loading}}">加载中…</view>

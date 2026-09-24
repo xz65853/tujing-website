@@ -1,0 +1,92 @@
+.mine-header {
+  position: relative;
+  background: linear-gradient(160deg, #0B1220, #1A2F6B 60%, #155EEF);
+  padding: 100rpx 40rpx 100rpx;
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+}
+.mine-glow {
+  position: absolute;
+  width: 400rpx; height: 400rpx;
+  border-radius: 50%;
+  background: rgba(77,139,255,0.3);
+  filter: blur(80rpx);
+  top: -100rpx; right: -100rpx;
+}
+.avatar {
+  width: 140rpx; height: 140rpx;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  margin: 0 auto;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 56rpx; font-weight: 700;
+  border: 4rpx solid rgba(255,255,255,0.3);
+}
+.nickname { margin-top: 24rpx; font-size: 36rpx; font-weight: 700; }
+.login-btn {
+  display: inline-block;
+  margin-top: 20rpx;
+  padding: 14rpx 40rpx;
+  background: rgba(255,255,255,0.2);
+  border: 2rpx solid rgba(255,255,255,0.3);
+  border-radius: 999rpx;
+  font-size: 26rpx;
+}
+.mine-tags { margin-top: 16rpx; }
+.mine-tag {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  color: #FFD700;
+  font-size: 20rpx;
+  padding: 4rpx 16rpx;
+  border-radius: 999rpx;
+  margin: 0 6rpx;
+}
+
+/* 统计卡片 */
+.stats-row {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 24rpx;
+}
+.stat-box {
+  flex: 1;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 28rpx 0;
+  text-align: center;
+  box-shadow: 0 4rpx 20rpx rgba(21,94,239,0.06);
+}
+.stat-num { font-size: 36rpx; font-weight: 800; color: #0B1220; }
+.stat-label { font-size: 22rpx; color: #8A94A6; margin-top: 4rpx; }
+
+/* 菜单 */
+.menu-list {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 12rpx 28rpx;
+  box-shadow: 0 4rpx 20rpx rgba(21,94,239,0.06);
+}
+.menu-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 28rpx 0;
+  border-bottom: 2rpx solid #F4F6FB;
+  font-size: 30rpx;
+}
+.menu-item:last-child { border-bottom: none; }
+.menu-left { display: flex; align-items: center; }
+.menu-icon {
+  width: 64rpx; height: 64rpx;
+  border-radius: 16rpx;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32rpx;
+  margin-right: 20rpx;
+}
+
+.company-card {
+  text-align: center;
+  margin-top: 60rpx;
+  padding: 40rpx 0;
+}
+.company-name { font-size: 26rpx; color: #8A94A6; }

@@ -1,0 +1,56 @@
+<view class="mine-header">
+  <view class="mine-glow"></view>
+  <view class="avatar">{{member ? member.nickname[0] : "?"}}</view>
+  <view class="nickname">{{member ? member.nickname : "未登录"}}</view>
+  <view class="login-btn" bindtap="login" wx:if="{{!member}}">微信一键登录</view>
+  <view class="mine-tags" wx:if="{{member}}">
+    <view class="mine-tag">VIP 会员</view>
+    <view class="mine-tag">已认证</view>
+  </view>
+</view>
+
+<view class="container" style="margin-top: -40rpx; position: relative; z-index: 2">
+  <view class="stats-row">
+    <view class="stat-box" bindtap="goOrders">
+      <view class="stat-num">--</view>
+      <view class="stat-label">我的订单</view>
+    </view>
+    <view class="stat-box" bindtap="goProducts">
+      <view class="stat-num">3</view>
+      <view class="stat-label">服务套餐</view>
+    </view>
+    <view class="stat-box" bindtap="goContact">
+      <view class="stat-num">1</view>
+      <view class="stat-label">在线咨询</view>
+    </view>
+  </view>
+
+  <view class="menu-list">
+    <view class="menu-item" bindtap="goOrders">
+      <view class="menu-left">
+        <view class="menu-icon" style="background:#EAF1FF">📦</view>
+        <text>我的订单</text>
+      </view>
+      <text class="muted">›</text>
+    </view>
+    <view class="menu-item" bindtap="goProducts">
+      <view class="menu-left">
+        <view class="menu-icon" style="background:#FFF3E0">🛒</view>
+        <text>服务套餐</text>
+      </view>
+      <text class="muted">›</text>
+    </view>
+    <view class="menu-item" bindtap="goContact">
+      <view class="menu-left">
+        <view class="menu-icon" style="background:#E8F5E9">💬</view>
+        <text>联系我们</text>
+      </view>
+      <text class="muted">›</text>
+    </view>
+  </view>
+
+  <view class="company-card">
+    <view class="company-name">湖南途鲸文化传媒有限公司</view>
+    <view class="muted">让每一份信任都物超所值</view>
+  </view>
+</view>
