@@ -5,8 +5,11 @@ import { logoutAction } from "@/lib/admin-actions";
 const MENU = [
   { href: "/admin", label: "工作台" },
   { href: "/admin/leads", label: "客户线索" },
+  { href: "/admin/orders", label: "订单管理" },
+  { href: "/admin/members", label: "会员" },
   { href: "/admin/cases", label: "案例管理" },
   { href: "/admin/services", label: "服务管理" },
+  { href: "/admin/products", label: "套餐管理" },
   { href: "/admin/articles", label: "文章管理" },
   { href: "/admin/banners", label: "Banner 管理" },
   { href: "/admin/settings", label: "网站设置" },
@@ -14,7 +17,11 @@ const MENU = [
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const admin = await getCurrentAdmin();
+
+  // 未登录（即登录页）：只裸渲染子页面，不套侧边栏，也不跳转，避免循环。
+  // 真正的路由拦截由 src/middleware.ts 负责。
   if (!admin) return <div className="min-h-screen bg-slate-50">{children}</div>;
+
   return (
     <div className="flex min-h-screen bg-slate-50">
       <aside className="fixed inset-y-0 left-0 hidden w-60 flex-col bg-ink text-white md:flex">
@@ -24,12 +31,16 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         </div>
         <nav className="flex-1 space-y-1 p-3">
           {MENU.map((m) => (
-            <Link key={m.href} href={m.href} className="block rounded-lg px-3 py-2 text-sm text-slate-300 hover:bg-white/10 hover:text-white">{m.label}</Link>
+            <Link key={m.href} href={m.href} className="block rounded-lg px-3 py-2 text-sm text-slate-300 hover:bg-white/10 hover:text-white">
+              {m.label}
+            </Link>
           ))}
         </nav>
         <div className="border-t border-white/10 p-3">
           <form action={logoutAction}>
-            <button className="w-full rounded-lg px-3 py-2 text-left text-sm text-slate-300 hover:bg-white/10">{admin.name} · 退出</button>
+            <button className="w-full rounded-lg px-3 py-2 text-left text-sm text-slate-300 hover:bg-white/10">
+              {admin.name} · 退出
+            </button>
           </form>
         </div>
       </aside>

@@ -36,6 +36,7 @@ model Service {
   icon        String?
   summary     String?
   description String?
+  // JSON 字符串数组：["账号定位","内容策划"]
   features    String?
   audience    String?
   seoTitle    String?
@@ -68,14 +69,16 @@ model Case {
   strategy    String?
   execution   String?
   result      String?
+  // 是否在前台展示项目数据（未核实数据时关闭，避免虚假宣传）
   dataVisible Boolean  @default(false)
+  // JSON 字符串：[{"label":"播放量","value":"xx"}]
   metrics     String?
   images      String?
   video       String?
   seoTitle    String?
   seoDesc     String?
   featured    Boolean  @default(false)
-  status      String   @default("draft")
+  status      String   @default("draft") // draft / published / archived
   sort        Int      @default(0)
   categoryId  Int?
   category    CaseCategory? @relation(fields: [categoryId], references: [id])
@@ -101,13 +104,14 @@ model Article {
   publishedAt DateTime?
   seoTitle   String?
   seoDesc    String?
-  status     String   @default("draft")
+  status     String   @default("draft") // draft / published / archived
   categoryId Int?
   category   ArticleCategory? @relation(fields: [categoryId], references: [id])
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
 
+// 客户线索 / CRM
 model Lead {
   id          Int      @id @default(autoincrement())
   name        String
@@ -115,11 +119,12 @@ model Lead {
   company     String?
   city        String?
   industry    String?
+  // 逗号分隔的需求：抖音代运营,短视频
   requirements String?
   message     String?
   source      String?
   sourcePage  String?
-  status      String   @default("pending")
+  status      String   @default("pending") // pending/contacted/intention/quoted/deal/lost/invalid
   assignedToId Int?
   assignedTo  Admin?   @relation("AssignedTo", fields: [assignedToId], references: [id])
   followups   LeadFollowup[]
@@ -159,11 +164,12 @@ model Media {
   id        Int      @id @default(autoincrement())
   url       String
   name      String
-  type      String
+  type      String   // image / video
   size      Int?
   createdAt DateTime @default(now())
 }
 
+// 单例站点设置（id 固定为 1）
 model SiteSetting {
   id           Int     @id @default(1)
   companyName  String  @default("湖南途鲸文化传媒有限公司")
@@ -180,4 +186,73 @@ model SiteSetting {
   siteTitle    String?
   siteDesc     String?
   siteKeywords String?
+}
+
+// ===== 微信小程序 =====
+
+// 微信小程序用户
+model Member {
+  id        Int      @id @default(autoincrement())
+  openid    String   @unique
+  unionid   String?
+  nickname  String?
+  avatar    String?
+  phone     String?
+  city      String?
+  // 会话 token（简化版：后端签发，小程序缓存）
+  token     String?   @unique
+  orders    Order[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 可在线购买的服务套餐（小程序里展示）
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  subtitle    String?
+  cover       String?
+  // 单位：分
+  price       Int
+  // 划线价（单位：分），选填
+  originalPrice Int?
+  duration    String?  // 如 "1个月"
+  summary     String?
+  // JSON 字符串：["包含 4 条短视频","账号诊断"]
+  features    String?
+  // 详情富文本
+  detail      String?
+  sort        Int      @default(0)
+  published   Boolean  @default(true)
+  orders      Order[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// 微信支付订单
+model Order {
+  id                  Int      @id @default(autoincrement())
+  // 商户订单号，也是微信支付 out_trade_no
+  outTradeNo          String   @unique
+  memberId            Int
+  member              Member   @relation(fields: [memberId], references: [id])
+  productId           Int
+  product             Product  @relation(fields: [productId], references: [id])
+  // 金额（单位：分）
+  amount              Int
+  // pending / paid / delivered / completed / refunded / closed
+  status              String   @default("pending")
+  // 微信支付交易号
+  transactionId       String?
+  // 联系人信息（下单时填写）
+  contactName         String?
+  contactPhone       String?
+  remark              String?
+  paidAt              DateTime?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@index([status])
+  @@index([memberId])
+  @@index([outTradeNo])
 }
