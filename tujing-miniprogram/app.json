@@ -1,0 +1,36 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/service-detail/service-detail",
+    "pages/case-detail/case-detail",
+    "pages/article-detail/article-detail",
+    "pages/products/products",
+    "pages/product-detail/product-detail",
+    "pages/order-confirm/order-confirm",
+    "pages/order-result/order-result",
+    "pages/orders/orders",
+    "pages/contact/contact",
+    "pages/mine/mine"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#0B1220",
+    "navigationBarTitleText": "途鲸传媒",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F6F8FB"
+  },
+  "tabBar": {
+    "color": "#7A8699",
+    "selectedColor": "#155EEF",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/index/index", "text": "首页" },
+      { "pagePath": "pages/products/products", "text": "服务套餐" },
+      { "pagePath": "pages/contact/contact", "text": "咨询" },
+      { "pagePath": "pages/mine/mine", "text": "我的" }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

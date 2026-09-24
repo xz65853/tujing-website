@@ -1,0 +1,13 @@
+{
+  "description": "途鲸传媒小程序",
+  "appid": "请替换为你的小程序 AppID",
+  "projectname": "tujing-miniprogram",
+  "miniprogramRoot": "./",
+  "setting": {
+    "es6": true,
+    "postcss": true,
+    "minified": true,
+    "urlCheck": false
+  },
+  "compileType": "miniprogram"
+}
